@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(){
             startActivity(Intent(this,SignUpActivity::class.java))
         }
         binding.FindPassword.setOnClickListener {
-
+            startActivity(Intent(this,FindPasswordActivity::class.java))
         }
     }
     private fun doLogin(userEmail: String, password:String){
