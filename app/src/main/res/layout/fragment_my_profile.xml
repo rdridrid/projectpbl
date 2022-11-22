@@ -3,12 +3,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MyProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="myprofile" />
+        android:layout_height="wrap_content"
+        android:id="@+id/bar"
+        android:background = "?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:background="?android:attr/windowBackground">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_close"
+                    android:id="@+id/close"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Text"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/design_default_color_primary_dark"
+                    android:layout_toEndOf="@id/close"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/save"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/design_default_color_primary"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필사진 편집"
+            android:layout_gravity="center"
+            android:id="@+id/image_change"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="16sp"/>
+        <!--이미지 뷰 나중에 circle로 바꾸기 -->
+
+        <ImageView
+            android:id="@+id/edit_myprofile_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/ic_android" />
+
+        <TextView
+            android:id="@+id/edit_myprofile_image_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 사진 변경"
+            android:layout_gravity="center"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="16sp"/>
+
+
+        <EditText
+            android:id="@+id/myprofile_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="20"
+            android:inputType="textPersonName"
+            android:text="이름(나중에 파베 연결)"
+            android:hint="이름을 입력하세요"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/myprofile_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="20"
+            android:inputType="textPersonName"
+            android:text="상태메세지(나중에 파베연결) 또는 그냥 빈칸으로 두기"
+            android:hint="상태메세지"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+    
+
 
 </FrameLayout>

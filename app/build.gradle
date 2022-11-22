@@ -46,14 +46,17 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    //implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    //스토리지
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    //파이어스토어
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    //realtime 데이터베이스
+    implementation 'com.google.firebase:firebase-database-ktx'
 
 
-
-
-    // 탭메뉴만들기
-    //implementation 'com.android.support:design:28.0.0' ->
-    //implementation 'com.google.android.material:material:1.0.0-rc01'
+    
 
 }
