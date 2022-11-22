@@ -12,6 +12,7 @@ class HomeActivity : AppCompatActivity(){
         val binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.success.text= Firebase.auth.currentUser?.uid?:"No Userr"
+       // binding.success.text= Firebase.auth.currentUser?.uid?:"No Userr"
+        binding.success.text = Firebase.auth.currentUser!!.uid
     }
 }
