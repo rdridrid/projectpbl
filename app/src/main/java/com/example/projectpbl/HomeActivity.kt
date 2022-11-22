@@ -31,8 +31,6 @@ class HomeActivity : AppCompatActivity(){
             true
         }
 
-
-        binding.success.text= Firebase.auth.currentUser?.uid?:"No Userr"
     }
     private fun setFragment(tag: String, fragment: Fragment){
         val manager: FragmentManager=supportFragmentManager

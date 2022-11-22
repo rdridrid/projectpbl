@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="drakgray">#FFA9A9A9</color>
+    <color name="lightgray">#FFD3D3D3</color>
+    <color name="whitesmoke">#FFF5F5F5</color>
 </resources>
