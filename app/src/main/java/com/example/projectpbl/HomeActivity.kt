@@ -11,6 +11,7 @@ private const val TAG_HOME = "home_fragment"
 private const val TAG_FRIEND = "friend_fragment"
 private const val TAG_MY_PROFILE = "my_profile_fragment"
 private const val TAG_POST = "post_fragment"
+private const val TAG_EDIT_MY_PROFILE = "my_profile_edit_fragment"
 class HomeActivity : AppCompatActivity(){
     private lateinit var binding : ActivityHomeBinding
 
@@ -78,4 +79,5 @@ class HomeActivity : AppCompatActivity(){
         }
         fragTransaction.commitAllowingStateLoss()
     }
+
 }

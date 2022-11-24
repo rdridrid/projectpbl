@@ -45,6 +45,9 @@ class SignUpActivity : AppCompatActivity(){
                 createAccount(email,password,SignUpUserName)
 
         }
+        binding.SignUpBackbtn.setOnClickListener {
+            onBackPressed()
+        }
     }
     private fun createAccount(email:String,password:String, SignUpUserName:String){
         if(email.isNotEmpty()&&password.isNotEmpty()){

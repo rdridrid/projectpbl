@@ -22,35 +22,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_close"
-                    android:id="@+id/close"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentStart="true"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Text"
+                    android:text="로고나 다른거 넣기"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="@color/design_default_color_primary_dark"
-                    android:layout_toEndOf="@id/close"/>
+                    />
 
-                <TextView
+                <ImageView
+                    android:id="@+id/edit_myprofile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/save"
-                    android:textSize="16sp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/design_default_color_primary"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_edit" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -89,23 +81,21 @@
             android:textSize="16sp"/>
 
 
-        <EditText
+        <TextView
             android:id="@+id/myprofile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:ems="20"
             android:inputType="textPersonName"
-            android:text="이름(나중에 파베 연결)"
-            android:hint="이름을 입력하세요"
-            android:layout_marginTop="20dp"/>
-        <EditText
+            android:text="이름" />
+        <TextView
             android:id="@+id/myprofile_status_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="20"
             android:inputType="textPersonName"
-            android:text="상태메세지(나중에 파베연결) 또는 그냥 빈칸으로 두기"
-            android:hint="상태메세지"
+            android:text="상태메세지를 입력하세요"
             android:layout_marginTop="20dp"/>
     </LinearLayout>
     
