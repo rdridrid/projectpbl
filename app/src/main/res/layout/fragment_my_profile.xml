@@ -88,7 +88,7 @@
             android:layout_marginTop="20dp"
             android:ems="20"
             android:inputType="textPersonName"
-            android:text="이름" />
+            android:text="" />
         <TextView
             android:id="@+id/myprofile_status_message"
             android:layout_width="wrap_content"

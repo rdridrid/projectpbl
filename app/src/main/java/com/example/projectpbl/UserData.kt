@@ -2,7 +2,7 @@ package com.example.projectpbl
 
 data class UserData(
     val uid: String="",
-    val password: String = "",
-    val useremail: String="",
+    val useremail: String = "",
+    val password: String="",
     val userName: String=""
 )

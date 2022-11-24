@@ -30,29 +30,8 @@ class MyProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) { //프래그먼트 호출시 실행
         super.onCreate(savedInstanceState)
-        val auth=Firebase.auth
-        val database = Firebase.database
-        val uid= Firebase.auth.currentUser!!.uid
-        val itemsRef = database.getReference("Users").child(uid)
-        val binding = FragmentMyProfileBinding.inflate(layoutInflater)
-        val UserName = binding.myprofileUsername
-        /*itemsRef.addValueEventListener(object :  ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //
-                val status = mutableListOf<UserData>()
-                for(child in dataSnapshot.children){
-                    status.add(UserData(child.key ?: "",child.value as String))
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                println("loadItem:onCancelled")
-            }
-        })*/
-
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -62,13 +41,35 @@ class MyProfileFragment : Fragment() {
     override fun onAttach(context: Context){
         super.onAttach(context)
     }
-    override fun onCreateView(
+    override fun onCreateView( //화면구성시 호출
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = FragmentMyProfileBinding.inflate(inflater,container, false)
+        val auth=Firebase.auth
+        val database = Firebase.database
+        val uid= Firebase.auth.currentUser!!.uid
+        val itemsRef = database.getReference("Users").child(uid)
+        val UserName = binding.myprofileUsername
+        itemsRef.addValueEventListener(object :  ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(child in dataSnapshot.children){
+                    if(child.key=="userName") {
+                        val test =child.value.toString()
+                        UserName.setText(test)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("loadItem:onCancelled")
+            }
+        })
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_profile, container, false)
+        //return inflater.inflate(R.layout.fragment_my_profile, container, false)
+        return binding.root
     }
 
 
