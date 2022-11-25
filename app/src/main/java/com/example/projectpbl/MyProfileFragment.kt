@@ -29,8 +29,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MyProfileFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
     override fun onCreate(savedInstanceState: Bundle?) { //프래그먼트 호출시 실행
         super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
     }
     override fun onAttach(context: Context){
         super.onAttach(context)
@@ -46,7 +54,6 @@ class MyProfileFragment : Fragment() {
         val database = Firebase.database
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
-        val Storage = FirebaseStorage.getInstance()
         val UserName = binding.myprofileUsername
         val UserStatusMessage = binding.myprofileStatusMessage
         itemsRef.addValueEventListener(object :  ValueEventListener{
@@ -70,15 +77,15 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
         binding.editMyprofile.setOnClickListener {
-            var photoPickerIntent = Intent(Intent.ACTION_PICK)
-            photoPickerIntent.type="image/*"
-
+            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileEditFragment.newInstance())
         }
         return binding.root
     }
 
 
+
     companion object {
+
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity(){
             }
             true
         }
-
     }
     private fun setFragment(tag: String, fragment: Fragment){
         val manager: FragmentManager=supportFragmentManager
@@ -101,6 +100,4 @@ class HomeActivity : AppCompatActivity(){
             .remove(fragment)
             .commit()
     }
-
-
 }
