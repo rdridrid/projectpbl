@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.projectpbl.databinding.ActivityMainBinding
 import com.example.projectpbl.databinding.FragmentMyProfileBinding
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -69,6 +67,9 @@ class MyProfileFragment : Fragment() {
         })
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
+        binding.editMyprofile.setOnClickListener {
+            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileEditFragment.newInstance())
+        }
         return binding.root
     }
 

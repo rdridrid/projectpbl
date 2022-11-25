@@ -78,4 +78,22 @@ class HomeActivity : AppCompatActivity(){
         }
         fragTransaction.commitAllowingStateLoss()
     }
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainFrameLayout, fragment)
+            .commit()
+    }
+
+    infix fun changeFragmentWithBackStack(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainFrameLayout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun removeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .remove(fragment)
+            .commit()
+    }
 }

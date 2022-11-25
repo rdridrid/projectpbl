@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MyProfileFragment">
+    tools:context=".MyProfileEditFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -35,37 +35,35 @@
                     />
 
                 <ImageView
-                    android:id="@+id/edit_myprofile"
+                    android:id="@+id/edit_myprofile_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_edit" />
+                    android:src="@drawable/ic_check" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
-
         <TextView
-            android:id="@+id/image_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="프로필사진 편집"
+            android:layout_gravity="center"
+            android:id="@+id/image_change"
             android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
         <!--이미지 뷰 나중에 circle로 바꾸기 -->
 
         <ImageView
-            android:id="@+id/myprofile_image"
+            android:id="@+id/edit_myprofile_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -73,15 +71,25 @@
             android:src="@drawable/ic_android" />
 
         <TextView
-            android:id="@+id/myprofile_username"
+            android:id="@+id/edit_myprofile_image_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 사진 변경"
+            android:layout_gravity="center"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="16sp"/>
+
+
+        <EditText
+            android:id="@+id/edit_myprofile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="20"
             android:inputType="textPersonName"
             android:text="" />
-        <TextView
-            android:id="@+id/myprofile_status_message"
+        <EditText
+            android:id="@+id/edit_myprofile_status_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="20"
@@ -89,7 +97,5 @@
             android:text="상태메세지를 입력하세요"
             android:layout_marginTop="20dp"/>
     </LinearLayout>
-    
-
 
 </FrameLayout>
