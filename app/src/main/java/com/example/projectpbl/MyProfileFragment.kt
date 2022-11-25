@@ -1,6 +1,9 @@
 package com.example.projectpbl
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,16 +29,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MyProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     override fun onCreate(savedInstanceState: Bundle?) { //프래그먼트 호출시 실행
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
     override fun onAttach(context: Context){
         super.onAttach(context)
@@ -50,6 +46,7 @@ class MyProfileFragment : Fragment() {
         val database = Firebase.database
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
+        val Storage = FirebaseStorage.getInstance()
         val UserName = binding.myprofileUsername
         val UserStatusMessage = binding.myprofileStatusMessage
         itemsRef.addValueEventListener(object :  ValueEventListener{
@@ -73,15 +70,15 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
         binding.editMyprofile.setOnClickListener {
-            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileEditFragment.newInstance())
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type="image/*"
+
         }
         return binding.root
     }
 
 
-
     companion object {
-
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

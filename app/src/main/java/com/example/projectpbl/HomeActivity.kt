@@ -1,5 +1,6 @@
 package com.example.projectpbl
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -7,6 +8,8 @@ import androidx.fragment.app.FragmentManager
 import com.example.projectpbl.databinding.ActivityHomeBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
+
 private const val TAG_HOME = "home_fragment"
 private const val TAG_FRIEND = "friend_fragment"
 private const val TAG_MY_PROFILE = "my_profile_fragment"
@@ -31,6 +34,7 @@ class HomeActivity : AppCompatActivity(){
             }
             true
         }
+
     }
     private fun setFragment(tag: String, fragment: Fragment){
         val manager: FragmentManager=supportFragmentManager
@@ -97,4 +101,6 @@ class HomeActivity : AppCompatActivity(){
             .remove(fragment)
             .commit()
     }
+
+
 }
