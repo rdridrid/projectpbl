@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity(){
                 R.id.friendFragment -> setFragment(TAG_FRIEND,FriendFragment())
                 R.id.profileFragment -> setFragment(TAG_MY_PROFILE,MyProfileFragment())
                 R.id.postFragment -> setFragment(TAG_POST,PostFragment())
+
             }
             true
         }
