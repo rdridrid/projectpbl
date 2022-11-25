@@ -33,6 +33,9 @@ class SignUpActivity : AppCompatActivity(){
                 else if(password.isEmpty()){
                     Toast.makeText(this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show()
                 }
+                else if(password.length<6){
+                    Toast.makeText(this, "비밀번호는 6자리 이상이여야 합니다..", Toast.LENGTH_SHORT).show()
+                }
                 else if(ConfirmPassword.isEmpty())
                 {
                     Toast.makeText(this, "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show()
@@ -43,6 +46,9 @@ class SignUpActivity : AppCompatActivity(){
             }
             else if(password == ConfirmPassword)
                 createAccount(email,password,SignUpUserName)
+            else{
+                Toast.makeText(this, "비밀번호가 같지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
 
         }
         binding.SignUpBackbtn.setOnClickListener {
