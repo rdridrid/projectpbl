@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,97 +9,126 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:id="@+id/bar"
         android:background = "?android:attr/windowBackground">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/toolbar"
-            android:background="?android:attr/windowBackground">
+            android:background="@color/whitesmoke">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로고나 다른거 넣기"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/design_default_color_primary_dark"
-                    />
-
                 <ImageView
-                    android:id="@+id/edit_myprofile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_edit" />
+                    android:src="@drawable/logo_land"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/edit_myprofile"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_edit"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+        <!--                AppBar                  -->
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="프로필사진 편집"
-            android:layout_gravity="center"
-            android:id="@+id/image_change"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp"/>
-        <!--이미지 뷰 나중에 circle로 바꾸기 -->
+        android:layout_height="match_parent" >
 
-        <ImageView
-            android:id="@+id/edit_myprofile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/ic_android" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/edit_myprofile_image_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="프로필 사진 변경"
-            android:layout_gravity="center"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp"/>
+            <ImageView
+                android:id="@+id/MyProfile_profilebg"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/profilebg" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/MyProfile_profileimage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginEnd="100dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/defaultprofileimage"
+                app:civ_border_color="#FFC0C0C0"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/myprofile_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MyProfile_profileimage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:text="UserName"
+                android:fontFamily="@font/lineseedkr_bd"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:background="@color/whitesmoke"
+                android:shadowRadius="7.0"
+                android:shadowDx="5.0"
+                android:shadowDy="5.0"
+                android:shadowColor="@color/drakgray"
+                />
+
+            <TextView
+                android:id="@+id/MyProfile_statustitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/myprofile_username"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lineseedkr_bd"
+                android:text="상태메시지"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/myprofile_status_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MyProfile_statustitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lineseedkr_rg"
+                android:hint="나 자신을 표현해보세요!"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
 
-        <TextView
-            android:id="@+id/myprofile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="20"
-            android:inputType="textPersonName"
-            android:text="" />
-        <TextView
-            android:id="@+id/myprofile_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="20"
-            android:inputType="textPersonName"
-            android:text="상태메세지를 입력하세요"
-            android:layout_marginTop="20dp"/>
-    </LinearLayout>
-    
-
-
-</FrameLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

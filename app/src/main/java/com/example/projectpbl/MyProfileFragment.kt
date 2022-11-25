@@ -58,7 +58,7 @@ class MyProfileFragment : Fragment() {
                 for(child in dataSnapshot.children){
                     if(child.key=="userName") {
                         val test =child.value.toString()
-                        UserName.setText(test)
+                        UserName.text = test
                     }
                 }
             }

@@ -4,5 +4,5 @@ data class UserData(
     val uid: String = "",
     val email: String = "",
     val password: String = "",
-    val displayName: String = "",
+    val userName: String = "",
 )
