@@ -5,6 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.projectpbl.databinding.FragmentMyProfileBinding
+import com.example.projectpbl.databinding.FragmentMyProfileEditBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +42,44 @@ class MyProfileEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_profile_edit, container, false)
+        val binding = FragmentMyProfileEditBinding.inflate(inflater,container, false)
+        val auth= Firebase.auth
+        val database = Firebase.database
+        val uid= Firebase.auth.currentUser!!.uid
+        val itemsRef = database.getReference("Users").child(uid)
+        val UserName = binding.editMyprofileUsername
+        val UserStatusMessage = binding.editMyprofileStatusMessage
+        itemsRef.addValueEventListener(object :  ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(child in dataSnapshot.children){
+                    if(child.key=="userName") {
+                        val test =child.value.toString()
+                        UserName.setText(test)
+                    }
+                    if(child.key=="UserStatusMessage"){
+                        val temp=child.value.toString()
+                        UserStatusMessage.setText(temp)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("loadItem:onCancelled")
+            }
+        })
+        binding.editMyprofileCheck.setOnClickListener {
+            val tempprofileusername=UserName.text.toString()
+            val tempprofileuserstatusmessage=UserStatusMessage.text.toString()
+            if(tempprofileusername.isEmpty()) {
+               println("이름이 없음")
+            }
+            else{ //프로필 변경 성공
+                database.getReference("Users").child(uid!!).child("userName").setValue(tempprofileusername)
+                database.getReference("Users").child(uid!!).child("UserStatusMessage").setValue(tempprofileuserstatusmessage)
+            }
+            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileFragment.newInstance())
+        }
+        return binding.root
     }
 
     companion object{
