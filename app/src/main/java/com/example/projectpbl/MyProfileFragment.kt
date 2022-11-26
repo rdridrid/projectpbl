@@ -3,6 +3,7 @@ package com.example.projectpbl
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -52,6 +53,9 @@ class MyProfileFragment : Fragment() {
         val binding = FragmentMyProfileBinding.inflate(inflater,container, false)
         val auth=Firebase.auth
         val database = Firebase.database
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.getReference()
+        val photo = binding.MyProfileProfileimage
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
         val UserName = binding.myprofileUsername
@@ -67,6 +71,19 @@ class MyProfileFragment : Fragment() {
                         val temp=child.value.toString()
                         UserStatusMessage.text=temp
                     }
+                    if(child.key=="userProfileImageUri"){
+                        val testtemp = child.value.toString()
+                        //file uri가 나옴
+                        val profileimageRef = storageRef.child(testtemp)
+                        profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
+                            val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
+                            photo.setImageBitmap(bmp)
+                            println("성공") //성공은 되는데 이미지가 안덮어지네
+                        }?.addOnFailureListener{
+                            println("실패")
+                        }
+
+                    }
                 }
             }
 
@@ -77,7 +94,7 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
         binding.editMyprofile.setOnClickListener {
-            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileEditFragment.newInstance())
+            (activity as HomeActivity)changeFragment(MyProfileEditFragment.newInstance())
         }
         return binding.root
     }
@@ -85,7 +102,6 @@ class MyProfileFragment : Fragment() {
 
 
     companion object {
-
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

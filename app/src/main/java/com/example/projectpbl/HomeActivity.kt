@@ -1,12 +1,10 @@
 package com.example.projectpbl
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.projectpbl.databinding.ActivityHomeBinding
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
@@ -82,7 +80,7 @@ class HomeActivity : AppCompatActivity(){
         }
         fragTransaction.commitAllowingStateLoss()
     }
-    fun changeFragment(fragment: Fragment) {
+    infix fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFrameLayout, fragment)
             .commit()
@@ -92,10 +90,11 @@ class HomeActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFrameLayout, fragment)
             .addToBackStack(null)
+
             .commit()
     }
 
-    fun removeFragment(fragment: Fragment) {
+    fun removeFragment(fragment: MyProfileEditFragment) {
         supportFragmentManager.beginTransaction()
             .remove(fragment)
             .commit()

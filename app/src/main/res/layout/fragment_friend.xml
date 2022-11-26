@@ -35,7 +35,14 @@
          </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-                        <!-- AppBar -->
+    <!-- AppBar -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bar"
+        android:layout_marginTop="-80dp" >
+
+    </ScrollView>
 
 
 

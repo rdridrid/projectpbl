@@ -64,9 +64,7 @@
                 android:id="@+id/MyProfile_profilebg"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/profilebg" />
