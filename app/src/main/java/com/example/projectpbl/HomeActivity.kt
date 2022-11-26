@@ -12,6 +12,7 @@ private const val TAG_HOME = "home_fragment"
 private const val TAG_FRIEND = "friend_fragment"
 private const val TAG_MY_PROFILE = "my_profile_fragment"
 private const val TAG_POST = "post_fragment"
+private const val TAG_EDIT_MY_PROFILE="my_profile_edit_fragment"
 class HomeActivity : AppCompatActivity(){
     private lateinit var binding : ActivityHomeBinding
 
@@ -30,6 +31,7 @@ class HomeActivity : AppCompatActivity(){
                 R.id.postFragment -> setFragment(TAG_POST,PostFragment())
 
             }
+
             true
         }
     }
@@ -44,6 +46,7 @@ class HomeActivity : AppCompatActivity(){
         val friend = manager.findFragmentByTag(TAG_FRIEND)
         val profile = manager.findFragmentByTag(TAG_MY_PROFILE)
         val post = manager.findFragmentByTag(TAG_POST)
+        val editprofile = manager.findFragmentByTag(TAG_EDIT_MY_PROFILE)
 
 
         if(home != null){
@@ -54,6 +57,10 @@ class HomeActivity : AppCompatActivity(){
         }
         if(profile != null){
             fragTransaction.hide(profile)
+            if(editprofile!=null) {
+                fragTransaction.hide(editprofile)
+            }
+
         }
         if(post != null){
             fragTransaction.hide(post)
@@ -94,7 +101,7 @@ class HomeActivity : AppCompatActivity(){
             .commit()
     }
 
-    fun removeFragment(fragment: MyProfileEditFragment) {
+    infix fun removeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .remove(fragment)
             .commit()

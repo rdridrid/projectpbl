@@ -143,6 +143,7 @@ class MyProfileEditFragment : Fragment() {
                     .setValue(tempprofileuserstatusmessage)
             }
             (activity as HomeActivity) changeFragment (MyProfileFragment.newInstance())
+            (activity as HomeActivity) removeFragment (MyProfileEditFragment.newInstance())
         }
         return binding.root
     }
