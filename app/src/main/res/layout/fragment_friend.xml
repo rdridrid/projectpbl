@@ -36,13 +36,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- AppBar -->
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/bar"
-        android:layout_marginTop="-80dp" >
+        android:layout_below="@+id/bar">
 
-    </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </LinearLayout>
 
 
 
