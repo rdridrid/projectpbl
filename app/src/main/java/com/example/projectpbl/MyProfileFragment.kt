@@ -55,11 +55,11 @@ class MyProfileFragment : Fragment() {
         val database = Firebase.database
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.getReference()
-        val photo = binding.MyProfileProfileimage
+        val photo = binding.myprofileImage
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
         val UserName = binding.myprofileUsername
-        val UserStatusMessage = binding.myprofileStatusMessage
+        val UserStatusMessage = binding.myprofileStatusmsg
         itemsRef.addValueEventListener(object :  ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(child in dataSnapshot.children){

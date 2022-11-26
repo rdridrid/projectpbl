@@ -73,7 +73,7 @@
 
 
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/upload_text"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_alignParentTop="true"
@@ -90,10 +90,10 @@
                 android:hint="Input the text" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_uploadimage"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextTextPersonName4"
+                android:layout_below="@+id/upload_text"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="75dp"
                 android:layout_marginEnd="30dp"
@@ -103,10 +103,10 @@
                 android:background="@drawable/btn_upload"/>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/upload_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_below="@+id/editTextTextPersonName4"
+                android:layout_below="@+id/upload_text"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"

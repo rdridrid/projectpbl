@@ -1,5 +1,6 @@
 package com.example.projectpbl
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -28,10 +29,9 @@ class HomeActivity : AppCompatActivity(){
                 R.id.homeFragment -> setFragment(TAG_HOME,HomeFragment())
                 R.id.friendFragment -> setFragment(TAG_FRIEND,FriendFragment())
                 R.id.profileFragment -> setFragment(TAG_MY_PROFILE,MyProfileFragment())
-                R.id.postFragment -> setFragment(TAG_POST,PostFragment())
-
+                R.id.postFragment -> startActivity(Intent(this, UploadPostActivity::class.java))
+                R.id.postFragment -> setFragment(TAG_HOME, HomeFragment())
             }
-
             true
         }
     }
