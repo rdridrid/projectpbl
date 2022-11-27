@@ -1,6 +1,10 @@
 package com.example.projectpbl
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +17,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,10 +53,13 @@ class MyProfileFragment : Fragment() {
         val binding = FragmentMyProfileBinding.inflate(inflater,container, false)
         val auth=Firebase.auth
         val database = Firebase.database
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.getReference()
+        val photo = binding.myprofileImage
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
         val UserName = binding.myprofileUsername
-        val UserStatusMessage = binding.myprofileStatusMessage
+        val UserStatusMessage = binding.myprofileStatusmsg
         itemsRef.addValueEventListener(object :  ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(child in dataSnapshot.children){
@@ -63,6 +71,18 @@ class MyProfileFragment : Fragment() {
                         val temp=child.value.toString()
                         UserStatusMessage.text=temp
                     }
+                    if(child.key=="userProfileImageUri"){
+                        val testtemp = child.value.toString()
+                        //file uri가 나옴
+                        val profileimageRef = storageRef.child(testtemp)
+                        profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
+                            val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
+                            photo.setImageBitmap(bmp)
+                        }?.addOnFailureListener{
+                            println("실패")
+                        }
+
+                    }
                 }
             }
 
@@ -73,7 +93,7 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
         binding.editMyprofile.setOnClickListener {
-            (activity as HomeActivity)changeFragmentWithBackStack(MyProfileEditFragment.newInstance())
+            (activity as HomeActivity)changeFragment(MyProfileEditFragment.newInstance())
         }
         return binding.root
     }
@@ -81,7 +101,6 @@ class MyProfileFragment : Fragment() {
 
 
     companion object {
-
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

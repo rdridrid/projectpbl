@@ -1,16 +1,19 @@
 package com.example.projectpbl
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.projectpbl.databinding.ActivityHomeBinding
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
+
 private const val TAG_HOME = "home_fragment"
 private const val TAG_FRIEND = "friend_fragment"
 private const val TAG_MY_PROFILE = "my_profile_fragment"
 private const val TAG_POST = "post_fragment"
+
 class HomeActivity : AppCompatActivity(){
     private lateinit var binding : ActivityHomeBinding
 
@@ -26,8 +29,7 @@ class HomeActivity : AppCompatActivity(){
                 R.id.homeFragment -> setFragment(TAG_HOME,HomeFragment())
                 R.id.friendFragment -> setFragment(TAG_FRIEND,FriendFragment())
                 R.id.profileFragment -> setFragment(TAG_MY_PROFILE,MyProfileFragment())
-                R.id.postFragment -> setFragment(TAG_POST,PostFragment())
-
+                R.id.postFragment -> startActivity(Intent(this, UploadPostActivity::class.java))
             }
             true
         }
@@ -53,6 +55,7 @@ class HomeActivity : AppCompatActivity(){
         }
         if(profile != null){
             fragTransaction.hide(profile)
+
         }
         if(post != null){
             fragTransaction.hide(post)
@@ -79,7 +82,7 @@ class HomeActivity : AppCompatActivity(){
         }
         fragTransaction.commitAllowingStateLoss()
     }
-    fun changeFragment(fragment: Fragment) {
+    infix fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFrameLayout, fragment)
             .commit()
@@ -89,10 +92,11 @@ class HomeActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFrameLayout, fragment)
             .addToBackStack(null)
+
             .commit()
     }
 
-    fun removeFragment(fragment: Fragment) {
+    infix fun removeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .remove(fragment)
             .commit()
