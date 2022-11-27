@@ -3,14 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="550dp"
     android:layout_margin="10dp"
     android:layout_marginBottom="5dp"
+    android:background="@drawable/post_design"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/profileimage_postitem"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/defaultprofileimage" />
+
+        <TextView
+            android:id="@+id/username_postitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/lineseedkr_bd"
+            android:text="사용자 이름"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/profileimage_postitem"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/email_postitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lineseedkr_rg"
+            android:text="usrname@user.com"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toEndOf="@+id/profileimage_postitem"
+            app:layout_constraintTop_toBottomOf="@+id/username_postitem" />
+
+        <TextView
+            android:id="@+id/posttitle_postitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="포스트 타이틀"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_postitem" />
+
+        <ImageView
+            android:id="@+id/postimage_postitem"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/posttitle_postitem" />
+
+        <TextView
+            android:id="@+id/posttext_postitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="본문"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postimage_postitem" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+    <!--
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:background="#E6E6E6"
         android:orientation="horizontal">
 
@@ -19,17 +93,22 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="left"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/defaultprofileimage" />
 
         <TextView
             android:id="@+id/username_postitem"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:text="이름 들어갈곳"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lineseedkr_bd"
+            android:text="사용자 이름"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/email_postitem"
             app:layout_constraintStart_toEndOf="@+id/profileimage_postitem"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,9 +117,10 @@
             android:id="@+id/email_postitem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="11dp"
-            android:layout_weight="1"
-            android:text="email"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="usrname@user.com"
+            android:fontFamily="@font/lineseedkr_rg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/profileimage_postitem"
             app:layout_constraintTop_toBottomOf="@+id/username_postitem" />
@@ -70,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="본문" />
-    </LinearLayout>
-</LinearLayout>
+    </LinearLayout> -->
+
 
 
