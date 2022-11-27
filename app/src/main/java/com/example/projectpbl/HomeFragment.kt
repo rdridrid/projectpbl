@@ -1,6 +1,7 @@
 package com.example.projectpbl
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -10,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator.ItemHolderInfo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -72,19 +75,7 @@ class HomeFragment : Fragment() {
                         val tempowneremail=data.child("useremail").getValue().toString()
                         val tempownerusername=data.child("username").getValue().toString()
                         tempimageuri=data.child("postfileImageUri").getValue().toString()
-
-                        /*UserRef.addValueEventListener(object: ValueEventListener{
-                            override fun onCancelled(error: DatabaseError) {
-                                println("실패")
-                            }
-
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                for(child in snapshot.children){
-                                    temppostownerusername = child.child(temppostowneruseruid).getValue().toString()
-                                }
-                            }
-                        })*/
-                        val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri)
+                        val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid)
                         post.add(temppost!!)
                     }
                     notifyDataSetChanged()
@@ -101,6 +92,7 @@ class HomeFragment : Fragment() {
             val postcontent : TextView = itemView.findViewById(R.id.posttext_postitem)
             val username : TextView = itemView.findViewById(R.id.username_postitem)
             val useremail : TextView = itemView.findViewById(R.id.email_postitem)
+            val userprofileimage : ImageView=itemView.findViewById(R.id.profileimage_postitem)
 
         }
 
@@ -114,14 +106,13 @@ class HomeFragment : Fragment() {
             }
             holder.username.text=post[position].name.toString()
             holder.useremail.text=post[position].email.toString()
-
-
-
-
-
+            holder.userprofileimage.setOnClickListener {
+                println(post[position].name)
+                //val uid=post[position].uid.toString() owneruid
+                //startActivity()
+            }
 
         }
-
         override fun getItemCount(): Int {
             return post.size
         }

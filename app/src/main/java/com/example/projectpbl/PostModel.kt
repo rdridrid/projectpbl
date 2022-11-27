@@ -9,5 +9,6 @@ data class PostModel(
     val name : String,
     val time : String,
     val email : String,
-    val imageUri : String
+    val imageUri : String,
+    val useruid : String
 )
