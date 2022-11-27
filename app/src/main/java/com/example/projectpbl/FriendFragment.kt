@@ -65,7 +65,6 @@ class FriendFragment : Fragment() {
                         val myfriendtempname=data.child("userName").value.toString()
                         val myfriendtempemail=data.child("email").value.toString()
                         var myfriendtempprofileimageUri=data.child("profileimage").value.toString()
-                        println(myfriendtempprofileimageUri)
                         if(myfriendtempprofileimageUri=="null"){
                             tempfriend= FriendData(myfriendtempname,myfriendtempemail,"default.png",myfrienduid)
                         }

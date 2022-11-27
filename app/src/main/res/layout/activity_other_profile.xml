@@ -42,6 +42,18 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TouchTargetSizeCheck" />
 
+                <TextView
+                    android:id="@+id/alreadyfriend_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="16dp"
+                    android:text="친구입니다"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.951"
+                    app:layout_constraintStart_toStartOf="@+id/fFriend_logo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>

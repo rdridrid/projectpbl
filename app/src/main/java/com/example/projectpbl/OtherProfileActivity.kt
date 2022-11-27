@@ -3,7 +3,9 @@ package com.example.projectpbl
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.projectpbl.databinding.ActivityFindpasswordBinding
 import com.example.projectpbl.databinding.ActivityOtherProfileBinding
 import com.google.firebase.auth.ktx.auth
@@ -31,10 +33,11 @@ class OtherProfileActivity : AppCompatActivity() {
         val uid=intent.getStringExtra("uid")//
         val myuid=Firebase.auth.currentUser!!.uid
         val photo=binding.otherprofileImage //!!는 nullable이 어차피 허용안된다는 뜻인가?
-        val itemsRef = database.getReference("Users").child(uid!!)
+        val itemsRef = database.getReference("Users").child(uid!!) //uid는 친구 uid
         val myfriendlistRef=database.getReference("Friends").child(myuid)
         val otherUsername=binding.otherprofileUsername
         val otherUserstatusMessage=binding.otherprofileStatusmsg
+        binding.alreadyfriendMessage.visibility=View.GONE
         itemsRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(child in snapshot.children){
@@ -62,6 +65,22 @@ class OtherProfileActivity : AppCompatActivity() {
                 println("실패")
             }
         })
+        myfriendlistRef.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(data in snapshot.children){
+                    //data.key가 친구 uid
+                    if(uid==data.key){//하나라도 만족한다->친구관계이다. (물론 여기서 친구는 일방적인 팔로우를 의미)
+                        binding.otherprofileAdd.visibility=View.GONE
+                        binding.otherprofileAdd.isEnabled=false//혹시몰라서 비활성화까지 했음
+                        binding.alreadyfriendMessage.visibility=View.VISIBLE
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
         val addfriendbtn = binding.otherprofileAdd
         addfriendbtn.setOnClickListener {//push아이디 자동생성
             myfriendlistRef.child(uid).setValue(uid)
