@@ -52,6 +52,13 @@ class HomeFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.lstPost)
         recyclerView.layoutManager=LinearLayoutManager(requireContext())
         recyclerView.adapter=RecyclerPostAdapter()
+        val logoutbtn : ImageView=view.findViewById(R.id.home_fragment_logout_btn)
+        logoutbtn.setOnClickListener {
+            newdata = Intent(activity, MainActivity::class.java)
+            (activity as HomeActivity).finish() //메인액티비티 작업 수행가능
+            Toast.makeText(activity, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
+            startActivity(newdata)
+        }
         return view
     }
     inner class RecyclerPostAdapter: RecyclerView.Adapter<RecyclerPostAdapter.PostViewHolder>(){
