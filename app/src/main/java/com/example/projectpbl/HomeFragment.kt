@@ -111,6 +111,11 @@ class HomeFragment : Fragment() {
                 //val uid=post[position].uid.toString() owneruid
                 //startActivity()
             }
+            val tempprofileimageRef=storage.getReference().child(post[position].useruid+"profileimage")
+            tempprofileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
+                val bmp=BitmapFactory.decodeByteArray(it,0,it.size)
+                holder. userprofileimage.setImageBitmap(bmp)
+            }
 
         }
         override fun getItemCount(): Int {
