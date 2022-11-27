@@ -44,5 +44,4 @@
         android:layout_below="@+id/bar"
         android:id="@+id/lstPost"
         tools:listitem="@layout/postlist_item"/>
-
 </RelativeLayout>

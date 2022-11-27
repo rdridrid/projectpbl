@@ -70,20 +70,25 @@
         <EditText
             android:id="@+id/upload_posttitle"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/edittext_login"
+            android:fontFamily="@font/lineseedkr_rg"
+            android:hint="Input the Title"
             android:inputType="text"
-            android:text="post title" />
+            android:padding="10dp"
+            android:textSize="20sp"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/upload_text"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_alignParentTop="true"
+            android:layout_height="150dp"
+            android:layout_below="@+id/upload_image"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/edittext_login"
             android:ems="10"
             android:fontFamily="@font/lineseedkr_rg"
@@ -92,30 +97,52 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_uploadimage"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/upload_text"
+            android:layout_below="@+id/upload_posttitle"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/btn_upload"
             android:fontFamily="@font/lineseedkr_bd"
             android:text="사진 업로드"
-            android:textSize="20sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/upload_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_below="@+id/upload_text"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/upload_posttitle"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_addphoto" />
+
+        <Button
+            android:id="@+id/btn_uploadimage_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_uploadimage"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:text="사진 삭제" />
+
+        <!--   <ImageView
+               android:id="@+id/upload_image"
+               android:layout_width="150dp"
+               android:layout_height="150dp"
+               android:layout_below="@+id/upload_posttitle"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentEnd="true"
+               android:layout_marginStart="120dp"
+               android:layout_marginTop="25dp"
+               android:layout_marginEnd="120dp"
+               android:src="@android:drawable/ic_menu_gallery" /> -->
 
     </RelativeLayout>
 
