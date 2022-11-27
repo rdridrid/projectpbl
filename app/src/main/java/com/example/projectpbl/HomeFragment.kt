@@ -68,18 +68,17 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     post.clear()
                     for (data in snapshot.children){
-                        val temppostid=data.child("postfileImageUri").getValue().toString() //post uri
                         val tempposttitle=data.child("Posttitle").getValue().toString() //Posts/posturi == post의 id와 동일함
                         temppostowneruseruid=data.child("uid").getValue().toString()//포스트 주인
-                        val temptime=data.child("time").getValue().toString()
-                        val tempcontent=data.child("Postcontent").getValue().toString()
-                        val tempowneremail=data.child("useremail").getValue().toString()
-                        val tempownerusername=data.child("username").getValue().toString()
-                        //tempimageuri=data.child("postfileImageUri").getValue().toString()
-                        val tempimageUri=data.child("postfileImageUri").key
-                        //val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid)
-                       // post.add(temppost!!)
-                        println(tempimageUri+"#################")
+                        val temptime=data.child("time").getValue().toString() //시간
+                        val tempcontent=data.child("Postcontent").getValue().toString()  //본문
+                        val tempowneremail=data.child("useremail").getValue().toString() //이메일주소
+                        val tempownerusername=data.child("username").getValue().toString() //만든사람 이름
+                        tempimageuri=data.child("postfileImageUri").getValue().toString() //포스트 사진 주소
+                        val tempownerprofileimage=data.child("profileimage").getValue().toString()
+                        val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid,tempownerprofileimage)
+                        println(temppost)
+                        post.add(temppost!!)
                     }
                     notifyDataSetChanged()
                 }
@@ -117,7 +116,7 @@ class HomeFragment : Fragment() {
                 newdata.putExtra("uid", post[position].useruid)
                 startActivity(newdata)
             }
-            val tempprofileimageRef=storage.getReference().child(post[position].useruid+"profileimage")
+            val tempprofileimageRef=storage.getReference().child(post[position].profileimageUri)
             tempprofileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
                 val bmp=BitmapFactory.decodeByteArray(it,0,it.size)
                 holder. userprofileimage.setImageBitmap(bmp)

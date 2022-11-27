@@ -23,6 +23,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class UploadPostActivity : AppCompatActivity() {
+    lateinit var ownerprofileimage : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityUploadPostBinding.inflate(layoutInflater)
@@ -42,6 +43,7 @@ class UploadPostActivity : AppCompatActivity() {
         val postRef=database.child("Posts") //Post하위 참조
         var myname : String=""
         var myemail: String=""
+        var ownerprofileimage: String="null"
         setContentView(binding.root)
         val getContent=
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result: ActivityResult ->
@@ -73,6 +75,15 @@ class UploadPostActivity : AppCompatActivity() {
                     }
                     if(child.key=="email"){
                         myemail =child.value.toString()
+                    }
+                    if(child.key=="profileimage"){
+                        ownerprofileimage=child.value.toString()
+                    }
+                    if(ownerprofileimage=="null"){
+                        ownerprofileimage="default.png"
+                    }
+                    else{
+                        ownerprofileimage=myuid+"profileimage"
                     }
                 }
             }
@@ -108,6 +119,7 @@ class UploadPostActivity : AppCompatActivity() {
                     database.child("Posts").child(postid!!).child("time").setValue(tempdate)
                     database.child("Posts").child(postid!!).child("username").setValue(myname)
                     database.child("Posts").child(postid!!).child("useremail").setValue(myemail)
+                    database.child("Posts").child(postid!!).child("profileimage").setValue(ownerprofileimage)
                     onBackPressed()
                     println("포스트 업로드 성공")
                 }

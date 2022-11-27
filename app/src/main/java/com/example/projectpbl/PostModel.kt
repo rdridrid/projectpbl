@@ -10,5 +10,6 @@ data class PostModel(
     val time : String,
     val email : String,
     val imageUri : String,
-    val useruid : String
+    val useruid : String,
+    val profileimageUri : String
 )
