@@ -27,6 +27,9 @@ class SignUpActivity : AppCompatActivity(){
             val password=binding.SignUpUserPassword.text.toString()
             val SignUpUserName=binding.SignUpUserName.text.toString()
             val ConfirmPassword=binding.SignUpUserConfirmPassword.text.toString()
+
+            var friend = ArrayList<String>()
+
             if (email.isEmpty() || password.isEmpty() || ConfirmPassword.isEmpty() || SignUpUserName.isEmpty()) {
                 if (email.isEmpty())
                     Toast.makeText(this, "이메일을 입력하세요.", Toast.LENGTH_SHORT).show()
@@ -45,7 +48,7 @@ class SignUpActivity : AppCompatActivity(){
                 }
             }
             else if(password == ConfirmPassword)
-                createAccount(email,password,SignUpUserName)
+                createAccount(email,password,SignUpUserName,friend)
             else{
                 
             }
@@ -55,13 +58,13 @@ class SignUpActivity : AppCompatActivity(){
             onBackPressed()
         }
     }
-    private fun createAccount(email:String,password:String, SignUpUserName:String){
+    private fun createAccount(email:String,password:String, SignUpUserName:String, friend: ArrayList<String>?){
         if(email.isNotEmpty()&&password.isNotEmpty()){
             auth?.createUserWithEmailAndPassword(email,password)
                 ?.addOnCompleteListener {
                     if(it.isSuccessful){
                         val uid=it.result.user?.uid
-                        database.getReference("Users").child(uid!!).setValue(UserData(uid,email,password,SignUpUserName))
+                        database.getReference("Users").child(uid!!).setValue(UserData(uid,email,password,SignUpUserName, friend))
                         Toast.makeText(
                             this,"계정 생성에 성공하였습니다.",
                             Toast.LENGTH_SHORT

@@ -5,4 +5,5 @@ data class UserData(
     val email: String = "",
     val password: String = "",
     val userName: String = "",
+    var friendId: ArrayList<String>?
 )
