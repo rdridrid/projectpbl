@@ -41,17 +41,13 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/bar">
 
-
-
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/friendlist_item"/>
-
+            tools:listitem="@layout/friendlist_item"
+            />
 
     </LinearLayout>
-
-
-
 </RelativeLayout>

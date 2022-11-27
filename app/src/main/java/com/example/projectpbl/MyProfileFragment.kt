@@ -78,7 +78,6 @@ class MyProfileFragment : Fragment() {
                         profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
                             val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
                             photo.setImageBitmap(bmp)
-                            println("성공") //성공은 되는데 이미지가 안덮어지네
                         }?.addOnFailureListener{
                             println("실패")
                         }
