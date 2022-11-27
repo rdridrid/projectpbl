@@ -95,7 +95,7 @@ class HomeActivity : AppCompatActivity(){
             .commit()
     }
 
-    infix fun removeFragment(fragment: Fragment) {
+    fun removeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .remove(fragment)
             .commit()
