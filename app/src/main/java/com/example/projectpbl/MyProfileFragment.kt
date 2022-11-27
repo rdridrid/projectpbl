@@ -73,13 +73,11 @@ class MyProfileFragment : Fragment() {
         itemsRef.addValueEventListener(object :  ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(child in dataSnapshot.children){
-
-                    if(child.key=="userProfileImageUri"){
+                    if(child.key=="userProfileImageUri"){ //uri는 존재하고
                         val testtemp = child.value.toString()
+                        println(testtemp)
                         //file uri가 나옴
-
                         val profileimageRef = storageRef.child(testtemp)
-
                         profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
                             val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
                             profileimage.setImageBitmap(bmp)
