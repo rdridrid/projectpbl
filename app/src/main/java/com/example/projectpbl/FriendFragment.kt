@@ -23,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage
 
 class FriendFragment : Fragment() {
     companion object {
+        private lateinit var newdata : Intent
     }
     private lateinit var database: DatabaseReference
     private lateinit var storage: FirebaseStorage
@@ -65,13 +66,12 @@ class FriendFragment : Fragment() {
                         val myfriendtempemail=data.child("email").value.toString()
                         var myfriendtempprofileimageUri=data.child("profileimage").value.toString()
                         println(myfriendtempprofileimageUri)
-
                         if(myfriendtempprofileimageUri=="null"){
-                            tempfriend= FriendData(myfriendtempname,myfriendtempemail,"default.png")
+                            tempfriend= FriendData(myfriendtempname,myfriendtempemail,"default.png",myfrienduid)
                         }
                         //println(data.child("userName").value) 나중에 참고용
                         else {
-                            tempfriend = FriendData(myfriendtempname, myfriendtempemail, myfriendtempprofileimageUri)
+                            tempfriend = FriendData(myfriendtempname, myfriendtempemail, myfriendtempprofileimageUri,myfrienduid)
                         }
                         friend.add(tempfriend!!)
                     }
@@ -96,12 +96,22 @@ class FriendFragment : Fragment() {
             holder.usernameitem.text=friend[position].username
             holder.useremailitem.text=friend[position].useremail
 
+
             val tempimageRef=storage.getReference().child(friend[position].imgUri)
             tempimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
                 val bmp = BitmapFactory.decodeByteArray(it, 0, it.size)
                 holder.userprofileimage.setImageBitmap(bmp)
                 }
+            holder.userprofileimage.setOnClickListener {
+                //println(post[position].name)
+                //val uid=post[position].uid.toString() owneruid
+                //startActivity()
+                newdata = Intent(activity, OtherProfileActivity::class.java)
+                newdata.putExtra("uid", friend[position].uid) //여기 uid는 친구 uid
+                startActivity(newdata)
+                }
             }
+
         override fun getItemCount(): Int{
             return friend.size
         }
