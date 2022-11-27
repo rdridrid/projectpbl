@@ -95,23 +95,25 @@ class UploadPostActivity : AppCompatActivity() {
             uploadTask.addOnFailureListener{
                 println("포스트업로드 실패")
             }.addOnSuccessListener { taskSnapshot->
-                database.child("Posts").child(postid!!).child("postfileImageUri").setValue(postid) //postid가 파일 이름도 됨
-                println("포스트 업로드 성공")
+                if(tempposttitle.isEmpty()){
+                    println("타이틀 없음")
+                }else if(tempcontent.isEmpty()){
+                    println("내용 없음")
+                }
+                else{
+                    database.child("Posts").child(postid!!).child("postfileImageUri").setValue(postid) //postid가 파일 이름도 됨
+                    database.child("Posts").child(postid!!).child("Postcontent").setValue(tempcontent)
+                    database.child("Posts").child(postid!!).child("Posttitle").setValue(tempposttitle)
+                    database.child("Posts").child(postid!!).child("uid").setValue(myuid)
+                    database.child("Posts").child(postid!!).child("time").setValue(tempdate)
+                    database.child("Posts").child(postid!!).child("username").setValue(myname)
+                    database.child("Posts").child(postid!!).child("useremail").setValue(myemail)
+                    onBackPressed()
+                    println("포스트 업로드 성공")
+                }
+
             }
-            if(tempposttitle.isEmpty()){
-                println("타이틀 없음")
-            }else if(tempcontent.isEmpty()){
-                println("내용 없음")
-            }
-            else{
-                database.child("Posts").child(postid!!).child("Postcontent").setValue(tempcontent)
-                database.child("Posts").child(postid!!).child("Posttitle").setValue(tempposttitle)
-                database.child("Posts").child(postid!!).child("uid").setValue(myuid)
-                database.child("Posts").child(postid!!).child("time").setValue(tempdate)
-                database.child("Posts").child(postid!!).child("username").setValue(myname)
-                database.child("Posts").child(postid!!).child("useremail").setValue(myemail)
-                onBackPressed()
-            }
+
 
         }
 
