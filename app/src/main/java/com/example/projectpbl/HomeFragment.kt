@@ -77,7 +77,6 @@ class HomeFragment : Fragment() {
                         tempimageuri=data.child("postfileImageUri").getValue().toString() //포스트 사진 주소
                         val tempownerprofileimage=data.child("profileimage").getValue().toString()
                         val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid,tempownerprofileimage)
-                        println(temppost)
                         post.add(temppost!!)
                     }
                     notifyDataSetChanged()

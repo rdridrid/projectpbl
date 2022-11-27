@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
@@ -43,7 +44,7 @@ class UploadPostActivity : AppCompatActivity() {
         val postRef=database.child("Posts") //Post하위 참조
         var myname : String=""
         var myemail: String=""
-        var ownerprofileimage: String="null"
+        var ownerprofileimage: String = ""
         setContentView(binding.root)
         val getContent=
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result: ActivityResult ->
@@ -76,20 +77,17 @@ class UploadPostActivity : AppCompatActivity() {
                     if(child.key=="email"){
                         myemail =child.value.toString()
                     }
-                    if(child.key=="profileimage"){
+                    ownerprofileimage="default.png"
+                    if(child.key=="profileimage"){ //디폴트로 둿다가 만약에 프로필이 있으면 바꾸는것
                         ownerprofileimage=child.value.toString()
-                    }
-                    if(ownerprofileimage=="null"){
-                        ownerprofileimage="default.png"
-                    }
-                    else{
-                        ownerprofileimage=myuid+"profileimage"
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                println("이름 로드 실패")
+                Toast.makeText(this@UploadPostActivity, "포스트 업로드 실패.-예기치못한 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+
+
             }
         })
 
@@ -121,7 +119,7 @@ class UploadPostActivity : AppCompatActivity() {
                     database.child("Posts").child(postid!!).child("useremail").setValue(myemail)
                     database.child("Posts").child(postid!!).child("profileimage").setValue(ownerprofileimage)
                     onBackPressed()
-                    println("포스트 업로드 성공")
+                    Toast.makeText(this@UploadPostActivity, "포스트 성공.", Toast.LENGTH_SHORT).show()
                 }
 
             }
