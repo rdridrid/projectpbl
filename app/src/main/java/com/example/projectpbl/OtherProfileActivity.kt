@@ -3,6 +3,7 @@ package com.example.projectpbl
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.projectpbl.databinding.ActivityFindpasswordBinding
 import com.example.projectpbl.databinding.ActivityOtherProfileBinding
 import com.google.firebase.auth.ktx.auth
@@ -67,6 +68,7 @@ class OtherProfileActivity : AppCompatActivity() {
             myfriendlistRef.child(uid).child("userName").setValue(otherusername)
             myfriendlistRef.child(uid).child("email").setValue(otheruseremail)
             myfriendlistRef.child(uid).child("profileimage").setValue(uid+"profileimage")
+            Toast.makeText(this@OtherProfileActivity, "친구추가 성공.", Toast.LENGTH_SHORT).show()
         }
 
     }

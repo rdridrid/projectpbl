@@ -102,12 +102,12 @@ class UploadPostActivity : AppCompatActivity() {
             val data=baos.toByteArray()
             val uploadTask = postfileimagRef.putBytes(data) //데이터 저장해놓고
             uploadTask.addOnFailureListener{
-                println("포스트업로드 실패")
+                Toast.makeText(this@UploadPostActivity, "포스트 업로드 실패.-예기치못한 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }.addOnSuccessListener { taskSnapshot->
                 if(tempposttitle.isEmpty()){
-                    println("타이틀 없음")
+                    Toast.makeText(this@UploadPostActivity, "제목을 넣어주세요.", Toast.LENGTH_SHORT).show()
                 }else if(tempcontent.isEmpty()){
-                    println("내용 없음")
+                    Toast.makeText(this@UploadPostActivity, "내용이 필요합니다.", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     database.child("Posts").child(postid!!).child("postfileImageUri").setValue(postid) //postid가 파일 이름도 됨
@@ -119,7 +119,7 @@ class UploadPostActivity : AppCompatActivity() {
                     database.child("Posts").child(postid!!).child("useremail").setValue(myemail)
                     database.child("Posts").child(postid!!).child("profileimage").setValue(ownerprofileimage)
                     onBackPressed()
-                    Toast.makeText(this@UploadPostActivity, "포스트 성공.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@UploadPostActivity, "포스팅 성공.", Toast.LENGTH_SHORT).show()
                 }
 
             }

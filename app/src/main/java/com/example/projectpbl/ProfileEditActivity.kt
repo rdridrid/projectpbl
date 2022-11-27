@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
@@ -95,13 +96,13 @@ class ProfileEditActivity : AppCompatActivity() {
             val data = baos.toByteArray()
             val uploadTask = profileimgRef.putBytes(data)
             uploadTask.addOnFailureListener{
-                println("실패")
+                Toast.makeText(this@ProfileEditActivity, "프로필 사진 업데이트에 실패했습니다..", Toast.LENGTH_SHORT).show()
             }.addOnSuccessListener {
                 database.child("Users").child(uid!!).child("userProfileImageUri")
                     .setValue(filename)
             }
             if (tempprofileusername.isEmpty()) {
-                println("이름이 없음")
+                Toast.makeText(this@ProfileEditActivity, "이름은 반드시 들어가야합니다!", Toast.LENGTH_SHORT).show()
             } else { //프로필 변경 성공
                 database.child("Users").child(uid!!).child("userName")
                     .setValue(tempprofileusername)
