@@ -75,9 +75,11 @@ class HomeFragment : Fragment() {
                         val tempcontent=data.child("Postcontent").getValue().toString()
                         val tempowneremail=data.child("useremail").getValue().toString()
                         val tempownerusername=data.child("username").getValue().toString()
-                        tempimageuri=data.child("postfileImageUri").getValue().toString()
-                        val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid)
-                        post.add(temppost!!)
+                        //tempimageuri=data.child("postfileImageUri").getValue().toString()
+                        val tempimageUri=data.child("postfileImageUri").key
+                        //val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,tempimageuri,temppostowneruseruid)
+                       // post.add(temppost!!)
+                        println(tempimageUri+"#################")
                     }
                     notifyDataSetChanged()
                 }
