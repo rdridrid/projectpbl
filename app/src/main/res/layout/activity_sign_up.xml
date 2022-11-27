@@ -178,39 +178,13 @@
                 android:inputType="textPassword"
                 android:padding="10dp" />
 
-            <TextView
-                android:id="@+id/SignUpGender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/SignUpBirthday"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="35dp"
-                android:fontFamily="@font/lineseedkr_bd"
-                android:text="성별"
-                android:textColor="@color/black"
-                android:textSize="25sp" />
-
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/SignUpGender"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/Gender_M"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:text="남성" />
-
-                <RadioButton
-                    android:id="@+id/Gender_W"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:text="여성" />
-            </RadioGroup>
+                android:orientation="horizontal"/>
 
             <Button
                 android:id="@+id/SignUpConfirmButton"
