@@ -128,8 +128,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_uploadimage"
             android:layout_alignParentEnd="true"
+            android:background="@drawable/btn_postimageclear"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/lineseedkr_bd"
             android:text="사진 삭제" />
 
         <!--   <ImageView

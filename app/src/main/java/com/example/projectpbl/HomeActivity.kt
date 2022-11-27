@@ -92,7 +92,6 @@ class HomeActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainFrameLayout, fragment)
             .addToBackStack(null)
-
             .commit()
     }
 
