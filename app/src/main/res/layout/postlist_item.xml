@@ -74,6 +74,7 @@
             app:layout_constraintTop_toBottomOf="@+id/posttitle_postitem">
 
             <ImageView
+                android:id="@+id/postlist_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
