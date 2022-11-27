@@ -109,7 +109,6 @@ class MyProfileFragment : Fragment() {
 
 
     companion object {
-
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

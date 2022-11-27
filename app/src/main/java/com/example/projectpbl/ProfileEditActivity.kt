@@ -113,6 +113,5 @@ class ProfileEditActivity : AppCompatActivity() {
             }
             finish()
         }
-
     }
 }
