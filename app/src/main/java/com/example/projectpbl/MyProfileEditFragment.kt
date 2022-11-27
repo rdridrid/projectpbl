@@ -114,7 +114,6 @@ class MyProfileEditFragment : Fragment() {
                     //download Uri
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 println("loadItem:onCancelled")
             }
