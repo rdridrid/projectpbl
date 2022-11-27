@@ -42,7 +42,6 @@ class UploadPostActivity : AppCompatActivity() {
                     val postimageUri = result.data?.data
                     postimage.setImageURI(postimageUri)
                     //여기서도 포스트 이미지는 올려놓기만한다.
-
                 }
 
             }
@@ -53,6 +52,11 @@ class UploadPostActivity : AppCompatActivity() {
         }
         binding.btnCancle.setOnClickListener { // Home 화면으로 돌아가기
             onBackPressed()
+        }
+
+        binding.btnUploadimageClear.setOnClickListener {
+            val imageview = binding.uploadImage
+            imageview.setImageDrawable(resources.getDrawable(R.drawable.ic_addphoto))
         }
 
         binding.btnUpload.setOnClickListener { // 업로드 버튼
