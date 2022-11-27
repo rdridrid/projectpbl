@@ -2,11 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/editprofile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MyProfileEditFragment">
+    tools:context=".ProfileEditActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/bar"
@@ -151,104 +149,10 @@
                 android:ems="15"
                 android:fontFamily="@font/lineseedkr_rg"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:padding="10dp"
                 android:text="상태메시지" />
         </RelativeLayout>
     </ScrollView>
 
-    <!--
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bar"
-        android:background = "?android:attr/windowBackground">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:background="?android:attr/windowBackground">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로고나 다른거 넣기"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/design_default_color_primary_dark"
-                    />
-
-                <ImageView
-                    android:id="@+id/edit_myprofile_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_check" />
-
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="프로필사진 편집"
-            android:layout_gravity="center"
-            android:id="@+id/image_change"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp"/>
-
-
-        <ImageView
-            android:id="@+id/edit_myprofile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/ic_android" />
-
-        <TextView
-            android:id="@+id/edit_myprofile_image_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="프로필 사진 변경"
-            android:layout_gravity="center"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="16sp"/>
-
-
-        <EditText
-            android:id="@+id/edit_myprofile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="20"
-            android:inputType="textPersonName"
-            android:text="" />
-
-        <EditText
-            android:id="@+id/edit_myprofile_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="20"
-            android:inputType="textPersonName"
-            android:text="상태메세지를 입력하세요"
-            android:layout_marginTop="20dp"/>
-    </LinearLayout>
-    -->
 </RelativeLayout>
