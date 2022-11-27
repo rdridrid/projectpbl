@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var database:DatabaseReference
     private lateinit var storage: FirebaseStorage
     private lateinit var tempimageuri: String
+    private lateinit var temppostowneruseruid:String
     private var post: ArrayList<PostModel> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,7 @@ class HomeFragment : Fragment() {
                     for (data in snapshot.children){
                         val temppostid=data.child("postfileImageUri").getValue().toString() //post uri
                         val tempposttitle=data.child("Posttitle").getValue().toString() //Posts/posturi == post의 id와 동일함
-                        val temppostowneruseruid=data.child("uid").getValue().toString()//포스트 주인
+                        temppostowneruseruid=data.child("uid").getValue().toString()//포스트 주인
                         val temptime=data.child("time").getValue().toString()
                         val tempcontent=data.child("Postcontent").getValue().toString()
                         val tempowneremail=data.child("useremail").getValue().toString()
@@ -111,7 +112,7 @@ class HomeFragment : Fragment() {
                 //val uid=post[position].uid.toString() owneruid
                 //startActivity()
                 newdata = Intent(activity, OtherProfileActivity::class.java)
-                newdata.putExtra("uid", "UserID")
+                newdata.putExtra("uid", post[position].useruid)
                 startActivity(newdata)
             }
             val tempprofileimageRef=storage.getReference().child(post[position].useruid+"profileimage")
@@ -125,5 +126,4 @@ class HomeFragment : Fragment() {
             return post.size
         }
     }
-
 }
