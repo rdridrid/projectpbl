@@ -6,11 +6,21 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.projectpbl.databinding.FragmentMyProfileBinding
+import com.google.android.material.internal.ContextUtils
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,9 +51,10 @@ class MyProfileFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    override fun onAttach(context: Context){
+    override fun onAttach(context: Context) {
         super.onAttach(context)
     }
+
     override fun onCreateView( //화면구성시 호출
 
         inflater: LayoutInflater,
@@ -55,14 +66,29 @@ class MyProfileFragment : Fragment() {
         val database = Firebase.database
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.getReference()
-        val photo = binding.myprofileImage
+        val profileimage = binding.myprofileImage
         val uid= Firebase.auth.currentUser!!.uid
         val itemsRef = database.getReference("Users").child(uid)
         val UserName = binding.myprofileUsername
         val UserStatusMessage = binding.myprofileStatusmsg
+
         itemsRef.addValueEventListener(object :  ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(child in dataSnapshot.children){
+
+                    if(child.key=="userProfileImageUri"){
+                        val testtemp = child.value.toString()
+                        //file uri가 나옴
+
+                        val profileimageRef = storageRef.child(testtemp)
+
+                        profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
+                            val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
+                            profileimage.setImageBitmap(bmp)
+                        }?.addOnFailureListener{
+                            println("실패")
+                        }
+                    }
                     if(child.key=="userName") {
                         val test =child.value.toString()
                         UserName.text = test
@@ -71,21 +97,8 @@ class MyProfileFragment : Fragment() {
                         val temp=child.value.toString()
                         UserStatusMessage.text=temp
                     }
-                    if(child.key=="userProfileImageUri"){
-                        val testtemp = child.value.toString()
-                        //file uri가 나옴
-                        val profileimageRef = storageRef.child(testtemp)
-                        profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
-                            val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
-                            photo.setImageBitmap(bmp)
-                        }?.addOnFailureListener{
-                            println("실패")
-                        }
-
-                    }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 println("loadItem:onCancelled")
             }
@@ -93,14 +106,14 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
         binding.editMyprofile.setOnClickListener {
-            (activity as HomeActivity)changeFragment(MyProfileEditFragment.newInstance())
+            startActivity(Intent(activity, ProfileEditActivity::class.java))
         }
         return binding.root
     }
 
 
-
     companion object {
+
         @JvmStatic
         fun newInstance() = MyProfileFragment()
     }

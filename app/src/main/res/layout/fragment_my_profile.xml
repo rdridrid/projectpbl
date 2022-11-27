@@ -2,21 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MyProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:id="@+id/bar"
-        android:background = "?android:attr/windowBackground">
+        android:background="?android:attr/windowBackground">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/toolbar"
             android:background="@color/whitesmoke">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,15 +47,15 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-        <!--                AppBar                  -->
+    <!--                AppBar                  -->
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/MyProfile_profilebg"
@@ -91,16 +92,15 @@
                 android:layout_below="@+id/myprofile_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:text="UserName"
-                android:fontFamily="@font/lineseedkr_bd"
-                android:textSize="30sp"
-                android:textColor="@color/black"
                 android:background="@color/whitesmoke"
-                android:shadowRadius="7.0"
+                android:fontFamily="@font/lineseedkr_bd"
+                android:shadowColor="@color/drakgray"
                 android:shadowDx="5.0"
                 android:shadowDy="5.0"
-                android:shadowColor="@color/drakgray"
-                />
+                android:shadowRadius="7.0"
+                android:text="UserName"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/MyProfile_statustitle"
