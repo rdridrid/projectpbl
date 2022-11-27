@@ -71,7 +71,7 @@ class UploadPostActivity : AppCompatActivity() {
                     if(child.key=="userName") {
                         myname = child.value.toString()
                     }
-                    if(child.key=="useremail"){
+                    if(child.key=="email"){
                         myemail =child.value.toString()
                     }
                 }
