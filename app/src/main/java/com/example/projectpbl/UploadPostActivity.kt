@@ -37,7 +37,7 @@ class UploadPostActivity : AppCompatActivity() {
         val myuid=auth.currentUser!!.uid
         val date=LocalDateTime.now()
         val tempdate=date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
-        val postid = myuid+date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))  //현재 업로드 시간 포맷팅
+        val postid = date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))+myuid //현재 업로드 시간 포맷팅
         val UserRef=database.child("Users").child(myuid)
         val postRef=database.child("Posts") //Post하위 참조
         var myname : String=""
