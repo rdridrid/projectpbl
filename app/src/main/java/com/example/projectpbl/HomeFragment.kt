@@ -27,7 +27,7 @@ import com.google.protobuf.Value
 
 class HomeFragment : Fragment() {
     companion object{
-
+        private lateinit var newdata : Intent
     }
     private lateinit var database:DatabaseReference
     private lateinit var storage: FirebaseStorage
@@ -107,9 +107,12 @@ class HomeFragment : Fragment() {
             holder.username.text=post[position].name.toString()
             holder.useremail.text=post[position].email.toString()
             holder.userprofileimage.setOnClickListener {
-                println(post[position].name)
+                //println(post[position].name)
                 //val uid=post[position].uid.toString() owneruid
                 //startActivity()
+                newdata = Intent(activity, OtherProfileActivity::class.java)
+                newdata.putExtra("uid", "UserID")
+                startActivity(newdata)
             }
 
         }
