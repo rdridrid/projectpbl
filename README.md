@@ -5,5 +5,4 @@
 
 ui 설계서  [UI 설계서.pdf](https://github.com/rdridrid/projectpbl/files/10100968/UI.pdf)
 
-테스트 케이스  [테스트 케이스.pdf](https://github.com/rdridrid/projectpbl/files/10102025/default.pdf) 
-
+테스트 케이스  [테스트 케이스.pdf](https://github.com/rdridrid/projectpbl/files/10104051/default.pdf)
