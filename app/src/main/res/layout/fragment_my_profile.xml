@@ -95,6 +95,7 @@
                 android:background="@color/whitesmoke"
                 android:fontFamily="@font/lineseedkr_bd"
                 android:shadowColor="@color/drakgray"
+                android:inputType="textPersonName"
                 android:shadowDx="5.0"
                 android:shadowDy="5.0"
                 android:shadowRadius="7.0"

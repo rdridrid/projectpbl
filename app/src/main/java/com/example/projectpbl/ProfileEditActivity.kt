@@ -26,6 +26,7 @@ class ProfileEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val auth = Firebase.auth
         val database = Firebase.database.getReference()
         val storage = FirebaseStorage.getInstance()
