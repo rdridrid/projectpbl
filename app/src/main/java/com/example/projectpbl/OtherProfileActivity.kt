@@ -1,11 +1,13 @@
 package com.example.projectpbl
 
+import android.app.Activity
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentTransaction
 import com.example.projectpbl.databinding.ActivityFindpasswordBinding
 import com.example.projectpbl.databinding.ActivityOtherProfileBinding
 import com.google.firebase.auth.ktx.auth
@@ -21,6 +23,7 @@ class OtherProfileActivity : AppCompatActivity() {
     // 또는 포스팅에서 상대 프로필 사진 클릭 시 이동
     lateinit var otherusername : String
     lateinit var otheruseremail: String
+    lateinit var passuid : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityOtherProfileBinding.inflate(layoutInflater)
@@ -31,6 +34,7 @@ class OtherProfileActivity : AppCompatActivity() {
         val storage = FirebaseStorage.getInstance()
         val storageRef=storage.getReference()
         val uid=intent.getStringExtra("uid")//
+        val passuid=uid
         val myuid=Firebase.auth.currentUser!!.uid
         val photo=binding.otherprofileImage //!!는 nullable이 어차피 허용안된다는 뜻인가?
         val itemsRef = database.getReference("Users").child(uid!!) //uid는 친구 uid
@@ -81,9 +85,25 @@ class OtherProfileActivity : AppCompatActivity() {
             }
         })
 
+
+        binding.alreadyfriendMessage.setOnClickListener {
+            val dialog=DeleteFriendDialog()
+            dialog.isCancelable=true
+            val transaction = supportFragmentManager.beginTransaction()
+            val bundle = Bundle()
+            bundle.putString("uid",passuid)
+            dialog.arguments=bundle
+            dialog.show(supportFragmentManager,"")
+            binding.otherprofileAdd.visibility=View.VISIBLE
+            binding.otherprofileAdd.isEnabled=true//혹시몰라서 비활성화까지 했음
+            binding.alreadyfriendMessage.visibility=View.GONE
+
+        }
+
+
         val addfriendbtn = binding.otherprofileAdd
         addfriendbtn.setOnClickListener {//push아이디 자동생성
-            myfriendlistRef.child(uid).setValue(uid)
+            myfriendlistRef.child(uid).setValue(uid) //child(uid)친구의 uid
             myfriendlistRef.child(uid).child("userName").setValue(otherusername)
             myfriendlistRef.child(uid).child("email").setValue(otheruseremail)
             myfriendlistRef.child(uid).child("profileimage").setValue(uid+"profileimage")
