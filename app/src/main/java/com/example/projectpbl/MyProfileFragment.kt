@@ -86,7 +86,6 @@ class MyProfileFragment : Fragment() {
                 if (result.resultCode == AppCompatActivity.RESULT_OK) {
                     imageUri = result.data?.data //이미지 경로 원본
                     photo.setImageURI(imageUri)
-                    binding.editMyprofile.visibility=View.VISIBLE
                 }
             }
 

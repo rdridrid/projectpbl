@@ -4,25 +4,35 @@ import android.app.Activity
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.os.IResultReceiver.Default
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.RecyclerView
 import com.example.projectpbl.databinding.ActivityFindpasswordBinding
 import com.example.projectpbl.databinding.ActivityOtherProfileBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.protobuf.Value
 
 class OtherProfileActivity : AppCompatActivity() {
     // 다른 사람 프로필 ( 친구 리스트에서 친구 이름 선택 시 상대 프로필로 이동 )
     // 또는 포스팅에서 상대 프로필 사진 클릭 시 이동
     lateinit var otherusername : String
     lateinit var otheruseremail: String
+    private lateinit var defaultdatabase: DatabaseReference
+    private lateinit var defaultstorage: FirebaseStorage
+    private lateinit var defaulttempimageuri: String
+    private lateinit var defaulttemppostowneruseruid:String
+    private var post: ArrayList<PostModel> = arrayListOf()
     lateinit var passuid : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +119,43 @@ class OtherProfileActivity : AppCompatActivity() {
             myfriendlistRef.child(uid).child("profileimage").setValue(uid+"profileimage")
             Toast.makeText(this@OtherProfileActivity, "친구추가 성공.", Toast.LENGTH_SHORT).show()
         }
+        /*inner class DefaultRecyclerPostAdapter:DefaultRecyclerPostAdapter<DefaultRecyclerPostAdapter.DefaultPostViewHolder>(){
+            init{
+                val defaultdatabase=Firebase.database.getReference()
+                val defaultPostRef=defaultdatabase.child("Posts")
+                val defaultUserRef =defaultdatabase.child("Users")
+                val defaulttempppostownerusername:String=""
+                defaultPostRef.addValueEventListener(object: ValueEventListener{
+                    override fun onCancelled(error: DatabaseError) {
+                        println("실패")
+                    }
 
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        post.clear()
+                        for (data in snapshot.children){
+                            val tempposttitle=data.child("Posttitle").getValue().toString() //Posts/posturi == post의 id와 동일함
+                            defaulttemppostowneruseruid=data.child("uid").getValue().toString()//포스트 주인 uid
+                            val temptime=data.child("time").getValue().toString() //시간
+                            val tempcontent=data.child("Postcontent").getValue().toString()  //본문
+                            val tempowneremail=data.child("useremail").getValue().toString() //이메일주소
+                            val tempownerusername=data.child("username").getValue().toString() //만든사람 이름
+                            defaulttempimageuri=data.child("postfileImageUri").getValue().toString() //포스트 사진 주소
+                            val tempownerprofileimage=data.child("profileimage").getValue().toString()
+                            val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,defaulttempimageuri,defaulttemppostowneruseruid,tempownerprofileimage)
+                            if(uid==defaulttemppostowneruseruid) {
+                                post.add(temppost!!)
+                            }
+                        }
+                        notifyDataSetChanged()
+                    }
+                })
+            }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType:Int):DefaultPostViewHolder{
+                return Defau
+            }
+            inner class DefaultPostViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+
+            }
+        }*/
     }
 }

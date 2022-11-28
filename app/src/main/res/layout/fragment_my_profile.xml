@@ -130,6 +130,13 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/myprofile_statusmsg"
+                android:id="@+id/mydefaultlstPost"
+                tools:listitem="@layout/default_postlist_item"/>
         </RelativeLayout>
 
     </ScrollView>

@@ -67,7 +67,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:id="@+id/otherprofile_post_list_head">
 
             <ImageView
                 android:id="@+id/MyProfile_profilebg"
@@ -141,8 +142,14 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/otherprofile_statusmsg"
+                android:id="@+id/lstPost"
+                tools:listitem="@layout/default_postlist_item"/>
 
         </RelativeLayout>
+
     </ScrollView>
 </RelativeLayout>
