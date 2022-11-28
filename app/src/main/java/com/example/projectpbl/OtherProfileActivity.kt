@@ -39,6 +39,8 @@ class OtherProfileActivity : AppCompatActivity() {
         val binding = ActivityOtherProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val otheruserprofile = intent.getStringExtra("uid")
+        val fragmentpostlist = OtherProfileListFragment() //프래그먼트 생성
+        fragmentpostlist.getuid(otheruserprofile!!) //반드시 있음
         val auth= Firebase.auth
         val database=Firebase.database
         val storage = FirebaseStorage.getInstance()
@@ -119,43 +121,8 @@ class OtherProfileActivity : AppCompatActivity() {
             myfriendlistRef.child(uid).child("profileimage").setValue(uid+"profileimage")
             Toast.makeText(this@OtherProfileActivity, "친구추가 성공.", Toast.LENGTH_SHORT).show()
         }
-        /*inner class DefaultRecyclerPostAdapter:DefaultRecyclerPostAdapter<DefaultRecyclerPostAdapter.DefaultPostViewHolder>(){
-            init{
-                val defaultdatabase=Firebase.database.getReference()
-                val defaultPostRef=defaultdatabase.child("Posts")
-                val defaultUserRef =defaultdatabase.child("Users")
-                val defaulttempppostownerusername:String=""
-                defaultPostRef.addValueEventListener(object: ValueEventListener{
-                    override fun onCancelled(error: DatabaseError) {
-                        println("실패")
-                    }
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        post.clear()
-                        for (data in snapshot.children){
-                            val tempposttitle=data.child("Posttitle").getValue().toString() //Posts/posturi == post의 id와 동일함
-                            defaulttemppostowneruseruid=data.child("uid").getValue().toString()//포스트 주인 uid
-                            val temptime=data.child("time").getValue().toString() //시간
-                            val tempcontent=data.child("Postcontent").getValue().toString()  //본문
-                            val tempowneremail=data.child("useremail").getValue().toString() //이메일주소
-                            val tempownerusername=data.child("username").getValue().toString() //만든사람 이름
-                            defaulttempimageuri=data.child("postfileImageUri").getValue().toString() //포스트 사진 주소
-                            val tempownerprofileimage=data.child("profileimage").getValue().toString()
-                            val temppost = PostModel(tempposttitle, tempcontent, tempownerusername, temptime,tempowneremail,defaulttempimageuri,defaulttemppostowneruseruid,tempownerprofileimage)
-                            if(uid==defaulttemppostowneruseruid) {
-                                post.add(temppost!!)
-                            }
-                        }
-                        notifyDataSetChanged()
-                    }
-                })
-            }
-            override fun onCreateViewHolder(parent: ViewGroup, viewType:Int):DefaultPostViewHolder{
-                return Defau
-            }
-            inner class DefaultPostViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-
-            }
-        }*/
+        val transaction=supportFragmentManager.beginTransaction().replace(R.id.otheruserpost,fragmentpostlist)
+        transaction.commit()
+        //////////////////////
     }
 }

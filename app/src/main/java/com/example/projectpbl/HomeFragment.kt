@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                 }
             })
         }//val myUid = Firebase.auth.currentUser!!.uid
-        override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): PostViewHolder{
+       override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): PostViewHolder{
             return PostViewHolder(LayoutInflater.from(context).inflate(R.layout.postlist_item,parent,false))
 
         }

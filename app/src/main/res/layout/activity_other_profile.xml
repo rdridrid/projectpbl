@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/otherprofile_image"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:text="UserName"
                 android:fontFamily="@font/lineseedkr_bd"
                 android:textSize="30sp"
@@ -123,7 +123,7 @@
                 android:layout_below="@+id/otherprofile_username"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/lineseedkr_bd"
                 android:text="상태메시지"
                 android:textColor="@color/black"
@@ -136,18 +136,21 @@
                 android:layout_below="@+id/MyProfile_statustitle"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/lineseedkr_rg"
                 android:hint="나 자신을 표현해보세요!"
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-            <androidx.recyclerview.widget.RecyclerView
+
+            <FrameLayout
+                android:id="@+id/otheruserpost"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/otherprofile_statusmsg"
-                android:id="@+id/lstPost"
-                tools:listitem="@layout/default_postlist_item"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
 
         </RelativeLayout>
 
