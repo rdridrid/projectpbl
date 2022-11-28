@@ -85,7 +85,7 @@
                 app:civ_border_overlay="true"
                 app:civ_border_width="2dp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/myprofile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/myprofile_statusmsg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

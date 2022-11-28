@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
-import com.bumptech.glide.Glide
+//import com.bumptech.glide.Glide
 import com.example.projectpbl.databinding.ActivityProfileEditBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -28,7 +28,7 @@ class ProfileEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        var imageUritemp : String
         val auth = Firebase.auth
         val database = Firebase.database.getReference()
         val storage = FirebaseStorage.getInstance()
@@ -81,12 +81,15 @@ class ProfileEditActivity : AppCompatActivity() {
                         val temp = child.value.toString()
                         UserStatusMessage.setText(temp)
                     }
+                    imageUritemp="default.png"
                     if(child.key=="userProfileImageUri"){
-                        val testtemp = child.value.toString()
-                        val uri = Uri.parse(testtemp)
-                        println(uri)
-                        Glide.with(applicationContext).load(uri).into(photo)
+                        imageUritemp = child.value.toString()
+
+                        //val uri = Uri.parse(testtemp)
+                        //println(uri)
+                        //Glide.with(applicationContext).load(uri).into(photo)
                     }
+                    println(imageUritemp)
                     //download Uri
                 }
             }

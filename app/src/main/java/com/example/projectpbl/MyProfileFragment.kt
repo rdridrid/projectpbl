@@ -3,6 +3,7 @@ package com.example.projectpbl
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -15,10 +16,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.bumptech.glide.Glide
-
 import com.example.projectpbl.databinding.FragmentMyProfileBinding
 import com.google.android.material.internal.ContextUtils
 import com.google.android.material.internal.ContextUtils.getActivity
@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 
 
@@ -68,6 +69,7 @@ class MyProfileFragment : Fragment() {
         val binding = FragmentMyProfileBinding.inflate(inflater,container, false)
         val auth=Firebase.auth
         val database = Firebase.database
+        val databaseRef = Firebase.database.getReference()
         val storage = FirebaseStorage.getInstance()
         val storageRef = storage.getReference()
         val photo = binding.myprofileImage
@@ -76,24 +78,15 @@ class MyProfileFragment : Fragment() {
         val itemsRef = database.getReference("Users").child(uid)
         val UserName = binding.myprofileUsername
         val UserStatusMessage = binding.myprofileStatusmsg
-/*
+        var imageUritemp: String
+        binding.editMyprofile.visibility=View.GONE
+        //binding.editMyprofile.isEnabled=false//혹시몰라서 비활성화까지 했음
         val getContent =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
                 if (result.resultCode == AppCompatActivity.RESULT_OK) {
                     imageUri = result.data?.data //이미지 경로 원본
-                    println("imageUri $imageUri")
                     photo.setImageURI(imageUri)
-                    //여기서는 올려놓기만하고 바뀐 image파일에 대해서만 비트맵 전환후 올리면될듯
-                        // 기존 프로필 사진 따로 delete 안하고 새로 putFile ( 동일한 filename ) --> replace
-                        fireStorage.child(filename).putFile(imageUri!!).addOnSuccessListener {
-                            println("putFile") //  동일한 filename으로 putFile --> 덮어쓰기가 됨
-                            fireStorage.child(filename).downloadUrl.addOnSuccessListener {
-                                val photoUri : Uri = it
-                                println(photoUri)
-                                fireDatabase.child("Users/$uid/userProfileImageUri").setValue(photoUri.toString())
-                                Toast.makeText(requireContext(), "프로필사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                    binding.editMyprofile.visibility=View.VISIBLE
                 }
             }
 
@@ -102,24 +95,29 @@ class MyProfileFragment : Fragment() {
             intentImage.type = MediaStore.Images.Media.CONTENT_TYPE
             getContent.launch(intentImage)
         }
- */
+
         itemsRef.addValueEventListener(object :  ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(child in dataSnapshot.children){
+                    imageUritemp="default.png"
+                    println(child.key)
                     if(child.key=="userProfileImageUri"){
-                        val testtemp = child.value.toString() //filename
-                        val uri = Uri.parse(testtemp)
-                        println(testtemp)
-                        Glide.with(requireContext())
-                            .load(uri).into(photo)
+                        imageUritemp = child.value.toString() //filename
+                    }
+                    val profileimageRef=storageRef.child(imageUritemp)
+                    profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
+                        val bmp=BitmapFactory.decodeByteArray(it,0,it.size)
+                        photo.setImageBitmap(bmp)
+                    }?.addOnFailureListener {
+                        println("실패")
                     }
                     if(child.key=="userName") {
                         val test =child.value.toString()
-                        UserName.text = test
+                        UserName.setText(test)
                     }
                     if(child.key=="UserStatusMessage"){
                         val temp=child.value.toString()
-                        UserStatusMessage.text=temp
+                        UserStatusMessage.setText(temp)
                     }
                 }
             }
@@ -129,7 +127,29 @@ class MyProfileFragment : Fragment() {
         })
 
         binding.editMyprofile.setOnClickListener {
-            startActivity(Intent(activity, ProfileEditActivity::class.java))
+                val tempprofileusername = UserName.text.toString()
+                val tempprofileuserstatusmessage = UserStatusMessage.text.toString()
+                if (tempprofileusername.isEmpty()) {
+                    //Toast.makeText(this@MyProfileFragment, "이름은 반드시 들어가야합니다!", Toast.LENGTH_SHORT).show()
+                } else { //프로필 변경 성공
+                    databaseRef.child("Users").child(uid!!).child("userName")
+                        .setValue(tempprofileusername)
+                    databaseRef.child("Users").child(uid!!).child("UserStatusMessage")
+                        .setValue(tempprofileuserstatusmessage)
+                    val profileimageRef = storageRef.child(filename)
+                    photo.isDrawingCacheEnabled=true
+                    val bitmap=photo.drawToBitmap()
+                    val baos = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos)
+                    val data=baos.toByteArray()
+                    val uploadTask=profileimageRef.putBytes(data)
+                    uploadTask.addOnFailureListener{
+                        //Toast.makeText(this@MyProfileFragment, "프로필 이미지 변경 실패.-예기치못한 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    }.addOnSuccessListener{ taskSnapshot->
+                        databaseRef.child("Users").child(uid!!).child("userProfileImageUri").setValue(filename)
+                        //Toast.makeText(this@MyProfileFragment, "프로필 이미지 변경 실패.-예기치못한 오류가 발생했습니다.", Toast.LE
+                    }
+                }
         }
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_my_profile, container, false)
@@ -140,7 +160,6 @@ class MyProfileFragment : Fragment() {
 
     companion object {
         val fireStorage = FirebaseStorage.getInstance().reference
-        val fireDatabase = FirebaseDatabase.getInstance().reference
         var imageUri : Uri? = null
         @JvmStatic
         fun newInstance() = MyProfileFragment()
