@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -33,28 +34,9 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     override fun onCreate(savedInstanceState: Bundle?) { //프래그먼트 호출시 실행
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -79,7 +61,7 @@ class MyProfileFragment : Fragment() {
         val UserName = binding.myprofileUsername
         val UserStatusMessage = binding.myprofileStatusmsg
         var imageUritemp: String
-        binding.editMyprofile.visibility=View.GONE
+        binding.editMyprofile.visibility=View.VISIBLE
         //binding.editMyprofile.isEnabled=false//혹시몰라서 비활성화까지 했음
         val getContent =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -93,6 +75,7 @@ class MyProfileFragment : Fragment() {
             val intentImage = Intent(Intent.ACTION_PICK)
             intentImage.type = MediaStore.Images.Media.CONTENT_TYPE
             getContent.launch(intentImage)
+            binding.editMyprofile.visibility=View.VISIBLE
         }
 
         itemsRef.addValueEventListener(object :  ValueEventListener{
@@ -124,7 +107,12 @@ class MyProfileFragment : Fragment() {
                 println("loadItem:onCancelled")
             }
         })
-
+        binding.myprofileUsername.setOnClickListener{
+            binding.editMyprofile.visibility=View.VISIBLE
+        }
+        binding.myprofileStatusmsg.setOnClickListener {
+            binding.editMyprofile.visibility=View.VISIBLE
+        }
         binding.editMyprofile.setOnClickListener {
                 val tempprofileusername = UserName.text.toString()
                 val tempprofileuserstatusmessage = UserStatusMessage.text.toString()
@@ -148,11 +136,10 @@ class MyProfileFragment : Fragment() {
                         databaseRef.child("Users").child(uid!!).child("userProfileImageUri").setValue(filename)
                         //Toast.makeText(this@MyProfileFragment, "프로필 이미지 변경 실패.-예기치못한 오류가 발생했습니다.", Toast.LE
                     }
+                    binding.editMyprofile.visibility=View.GONE
+
                 }
         }
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_my_profile, container, false)
-
         return binding.root
     }
 
