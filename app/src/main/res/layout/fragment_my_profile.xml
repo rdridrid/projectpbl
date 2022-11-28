@@ -55,7 +55,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/myprofile_postimage">
 
             <ImageView
                 android:id="@+id/MyProfile_profilebg"
@@ -129,8 +130,7 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-
-
         </RelativeLayout>
+
     </ScrollView>
 </RelativeLayout>

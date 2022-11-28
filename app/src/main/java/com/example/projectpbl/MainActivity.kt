@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {  // 로그인 화면
                     startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 } else {
-                    Log.w("MainActivity", "signInWithEmail", it.exception)
-                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT)
+                    //Log.w("MainActivity", "signInWithEmail", it.exception)
+                    Toast.makeText(this, "등록되지않은 사용자입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
 
