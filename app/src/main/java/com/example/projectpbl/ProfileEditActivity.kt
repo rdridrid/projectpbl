@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.drawToBitmap
+import com.bumptech.glide.Glide
 import com.example.projectpbl.databinding.ActivityProfileEditBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -38,14 +40,26 @@ class ProfileEditActivity : AppCompatActivity() {
         val UserStatusMessage = binding.editMyprofileStatusMessage
         val photo = binding.editMyprofileImage
         val edit = binding.editMyprofileImageText
+        val fireStorage = FirebaseStorage.getInstance().reference
+        val fireDatabase = FirebaseDatabase.getInstance().reference
         val filename = uid+"profileimage"
         val getContent =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
                 if (result.resultCode == AppCompatActivity.RESULT_OK) {
                     imageUri = result.data?.data //이미지 경로 원본
                     photo.setImageURI(imageUri)
+
                     //여기서는 올려놓기만하고 바뀐 image파일에 대해서만 비트맵 전환후 올리면될듯
-                } else {
+                }else {
+                    fireStorage.child(filename).putFile(imageUri!!).addOnSuccessListener {
+                        fireStorage.child(filename).downloadUrl.addOnSuccessListener {
+                            val photoUri: Uri = it
+                            println(photoUri)
+                            fireDatabase.child("Users/$uid/userProfileImageUri")
+                                .setValue(photoUri.toString())
+                            Toast.makeText(this, "프로필사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
 
@@ -69,14 +83,9 @@ class ProfileEditActivity : AppCompatActivity() {
                     }
                     if(child.key=="userProfileImageUri"){
                         val testtemp = child.value.toString()
-                        val profileimageRef = storageRef.child(testtemp)
-                        profileimageRef?.getBytes(Long.MAX_VALUE)?.addOnSuccessListener {
-                            val bmp = BitmapFactory.decodeByteArray(it,0,it.size)
-                            photo.setImageBitmap(bmp)
-                        }?.addOnFailureListener{
-                            println("실패")
-                        }
-
+                        val uri = Uri.parse(testtemp)
+                        println(uri)
+                        Glide.with(applicationContext).load(uri).into(photo)
                     }
                     //download Uri
                 }
@@ -88,19 +97,6 @@ class ProfileEditActivity : AppCompatActivity() {
         binding.editMyprofileCheck.setOnClickListener {
             val tempprofileusername = UserName.text.toString()
             val tempprofileuserstatusmessage = UserStatusMessage.text.toString()
-            val profileimgRef = storageRef.child(filename)
-            photo.isDrawingCacheEnabled = true
-            val bitmap = photo.drawToBitmap()
-            val baos = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            val data = baos.toByteArray()
-            val uploadTask = profileimgRef.putBytes(data)
-            uploadTask.addOnFailureListener{
-                Toast.makeText(this@ProfileEditActivity, "프로필 사진 업데이트에 실패했습니다..", Toast.LENGTH_SHORT).show()
-            }.addOnSuccessListener {
-                database.child("Users").child(uid!!).child("userProfileImageUri")
-                    .setValue(filename)
-            }
             if (tempprofileusername.isEmpty()) {
                 Toast.makeText(this@ProfileEditActivity, "이름은 반드시 들어가야합니다!", Toast.LENGTH_SHORT).show()
             } else { //프로필 변경 성공
@@ -108,10 +104,8 @@ class ProfileEditActivity : AppCompatActivity() {
                     .setValue(tempprofileusername)
                 database.child("Users").child(uid!!).child("UserStatusMessage")
                     .setValue(tempprofileuserstatusmessage)
-                database.child("Users").child(uid!!).child("userProfileImageUri")
-                    .setValue(filename)
             }
-            finish()
+            onBackPressed()
         }
     }
 }
